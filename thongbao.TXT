@@ -1,5 +1,5 @@
 THÔNG BÁO PHẦN MỀM ĐANG TRONG GIAI ĐOẠN PHÁT TRIỂN
 Update phiên bản ( https://sites.google.com/view/ketcaumk-pr/kc-mk-pr?authuser=0)
 Mọi thắc mắc vui lòng liên hệ
-Email (contact.ketcaumkpr@gmail.com )
-Phần mềm phát triển trên ngôn ngữ lập trình Python, do sinh viên khôbg chuyên lập trình phát triển nên sẽ có chổ không tốt vì thế xin thông cảm .
+Email (contact.ketcaumkpr@gmail.com 
+#Developer By Minh Khoa
