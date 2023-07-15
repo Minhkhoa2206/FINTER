@@ -10,3 +10,5 @@ xin lỗi vì sự bất tiện này
 conten
 [2023-07-15 10:51:11] Name: Minh Khoa
 hello
+[2023-07-15 10:54:52] Name: Minh Khoa
+Hi
