@@ -12,3 +12,5 @@ Ada
 Feny hinder
 [2023-07-15 06:43:15] Name:Gondo
 What
+[2023-07-15 06:43:24] Name:Gondo
+How are you
