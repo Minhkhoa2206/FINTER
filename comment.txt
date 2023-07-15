@@ -8,3 +8,6 @@ eeee
 [2023-07-15 10:25:58] Sender: id
 khoa
 [2023-07-15 10:26:08] Sender: Khoa Nè
+
+[2023-07-15 10:26:29] Name: Khoa Nè
+Minh
