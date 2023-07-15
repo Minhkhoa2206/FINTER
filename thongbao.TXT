@@ -1,7 +1,6 @@
-Xin chào tôi là tác giả phân mềm này, đây là phần mềm tôi viết ra để hổ trợ làm đồ án
-Đây là phần mềm sơ sài, không đủ tính năng và có thể ra kết quả sai, nên khi dùng bạn
-nên cân nhắc nhé.
-Bạn có thể trải nghiệm một số tính năng mà tôi cho là rất đúng ví dụ như là Tải Trọng Gió ( TCVN 2737-1995 )
-( Đang update TCVN 2737-2023 ) 
-Và một số Excel tính kết cấu tôi đã tổng hợp từ thầy của tôi.
+- Xin chào tôi là tác giả phân mềm này, đây là phần mềm tôi viết ra để hổ trợ làm đồ án
+- Đây là phần mềm sơ sài, không đủ tính năng và có thể ra kết quả sai, nên khi dùng bạn
+  nên cân nhắc nhé.
+- Bạn có thể trải nghiệm một số tính năng mà tôi cho là rất đúng ví dụ như là Tải Trọng Gió Theo  TCVN 2737-1995 Đang update TCVN 2737-2023
+- Và một số Excel tính kết cấu tôi đã tổng hợp từ thầy của tôi.
 Dowload (https://drive.google.com/uc?export=download&id=1tCBAEnRqghlVOeMOwNPxmYfaZbi7Hdgk)
