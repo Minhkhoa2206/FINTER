@@ -80,3 +80,5 @@ ok phết
 Hello
 [2023-07-15 05:30:57] Name:Ga
 Aciden
+[2023-07-15 05:33:14] Name:Ga
+Hi
