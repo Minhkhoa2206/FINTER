@@ -13,3 +13,5 @@ khoa
 Minh
 [2023-07-15 10:27:35] Name: Gonzo
 Hello
+[2023-07-15 10:27:51] Name: Black Bi
+Hello ai zị ba
