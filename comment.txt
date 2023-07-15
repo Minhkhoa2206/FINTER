@@ -18,3 +18,5 @@ How are you
 What you name?
 [2023-07-15 06:45:09] Name:Gondo
 Ok
+[2023-07-15 06:45:28] Name:Gondo
+Hin
