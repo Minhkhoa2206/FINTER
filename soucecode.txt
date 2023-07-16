@@ -1,0 +1,679 @@
+# Developer By Minh Khoa
+import tkinter as tk
+from PIL import ImageTk, Image
+import os
+from tkinter import filedialog
+import glob
+import shutil
+from tkinter import Tk, Label, PhotoImage
+from PIL import ImageTk, Image, ImageDraw, ImageOps
+from datetime import datetime
+from win32com.client import Dispatch
+from tkinter import messagebox
+import jsons
+import os
+import tkinter as tk
+from tkinter import font
+from tkinter import ttk
+import time
+import json
+import urllib.request
+
+# Change the current working directory to C:\KetCauMk-Pr
+os.chdir(r'C:\KetCauMk-Pr')
+# Construct the path to the KetCauMk-pr folder on the C drive
+cwd = r'C:\KetCauMk-Pr'
+
+old_directory = cwd
+
+def change_directory():
+    new_directory = filedialog.askdirectory()
+    if new_directory:
+        shutil.copytree(old_directory, new_directory)
+
+def open_loc():
+    loc_path = 'C:/KetCauMk-Pr/Filter data/Filter data.exe'
+    os.startfile(loc_path)
+    
+def open_TaiAutocad():
+    autocad_path = 'C:/KetCauMk-Pr/Autocad Dowload/Autocad Dowload.exe'
+    os.startfile(autocad_path)
+
+def open_Tai_Trong():
+    tai_trong_path = 'C:/KetCauMk-Pr/EXCEL/Excel Tính Toán Tải Trọng.xlsx'
+    os.startfile(tai_trong_path)
+
+def open_Tai_Trong_Gio():
+    tai_trong_gio_path = 'C:/KetCauMk-Pr/Tải Trọng Gió/Tải Trọng Gió.exe'
+    os.startfile(tai_trong_gio_path)
+    
+def open_Infor_Disk():
+    infordisk_path = 'C:/KetCauMk-Pr/Infor Disk/disk.exe'
+    os.startfile(infordisk_path)
+    
+def open_stell_beam():
+    stell_beam_path = os.path.join(cwd, 'St1.exe')
+    os.startfile(stell_beam_path)
+
+def open_thep_doc_dam():
+    thep_doc_dam_path = 'C:/KetCauMk-Pr/EXCEL/thepdodam.xlsx'
+    os.startfile(thep_doc_dam_path)
+def open_thep_doc_dam():
+    thep_doc_dam_path ='C:/KetCauMk-Pr/EXCEL/thepdodam.xlsx'
+    os.startfile(thep_doc_dam_path)
+
+def open_thep_dai_dam():
+    thep_dai_dam_path = 'C:/KetCauMk-Pr/EXCEL/thepdaidam.xlsx'
+    os.startfile(thep_dai_dam_path)
+def open_Do_Na_Te():
+    do_na_te_path = os.path.join(cwd, 'donata.exe')
+    os.startfile(do_na_te_path)
+
+def display_excel_files():
+    folder_path = "C:/KetCauMk-Pr/LTX"
+    os.startfile(folder_path)
+
+
+#Hàm tạo icon ngoài desktop và chạy nền 
+
+def create_shortcut():
+    import os
+    from win32com.client import Dispatch
+    from tkinter import messagebox
+
+    # Get the path to the Desktop folder
+    desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+    
+    # Construct the path to the KetCauMk-Pr.exe file
+    target = os.path.join(r'C:\KetCauMk-Pr', 'KetCauMk-Pr.exe')
+    
+    # Construct the path to the logo.ico file
+    icon = os.path.join(r'C:\KetCauMk-Pr', 'logo.ico')
+    
+    # Construct the path to the shortcut
+    path = os.path.join(desktop, 'KetCauMk-Pr.lnk')
+
+    # Create the shortcut
+    shell = Dispatch('WScript.Shell')
+    shortcut = shell.CreateShortCut(path)
+    shortcut.Targetpath = target
+    shortcut.IconLocation = icon
+    
+    # Set the "Start in" property of the shortcut to C:\KetCauMk-Pr
+    shortcut.WorkingDirectory = r'C:\KetCauMk-Pr'
+    
+    # Save the shortcut
+    shortcut.save()
+    
+    # Show a message box to inform the user that the shortcut was created successfully
+    messagebox.showinfo("Thông báo", "Tạo Shortcut thành công!")
+    
+def open_settings():
+    # Create a new window
+    settings_window = tk.Toplevel(root)
+    settings_window.title("Tùy Chỉnh")
+    
+    # Set the window icon
+    settings_window.iconbitmap('tuychinh1.ico')
+    
+    # Load the saved settings
+    try:
+        with open('settings.json', 'r') as f:
+            settings = json.load(f)
+    except FileNotFoundError:
+        settings = {}
+    
+    
+    # Create the "Bật Hộp Thoại Này Khi Khởi Động" checkbutton
+    show_on_startup_var = tk.BooleanVar(value=settings.get('show_on_startup', False))
+    show_on_startup_cb = tk.Checkbutton(settings_window, text="Bật Hộp Thoại Này Khi Khởi Động", variable=show_on_startup_var)
+    show_on_startup_cb.pack()
+    
+    # Create the "Khởi động cùng windows" checkbutton
+    start_with_windows_var = tk.BooleanVar(value=settings.get('start_with_windows', False))
+    start_with_windows_cb = tk.Checkbutton(settings_window, text="Khởi động cùng windows", variable=start_with_windows_var)
+    start_with_windows_cb.pack()
+  
+    # Save the settings when the window is closed
+    def on_close():
+        settings['show_on_startup'] = show_on_startup_var.get()
+        settings['start_with_windows'] = start_with_windows_var.get()
+        with open(r'C:\KetCauMk-Pr\settings.json', 'w') as f:
+            json.dump(settings, f)
+
+        # Construct the path to the KetCauMk-Pr.exe file
+        target = r'C:\KetCauMk-Pr\KetCauMk-Pr.exe'
+
+        # Construct the path to the logo.ico file
+        icon = r'C:\KetCauMk-Pr\logo.ico'
+        
+        # Get the path to the Startup folder
+        startup = os.path.join(os.environ['APPDATA'], r'Microsoft\Windows\Start Menu\Programs\Startup')
+        
+        # Construct the path to the shortcut
+        path = os.path.join(startup, 'KetCauMk-Pr.lnk')
+        
+        if start_with_windows_var.get():
+            # Create a shortcut in the Startup folder if the "Khởi động cùng windows" checkbutton is checked
+            shell = Dispatch('WScript.Shell')
+            shortcut = shell.CreateShortCut(path)
+            shortcut.Targetpath = target
+            shortcut.IconLocation = icon
+            shortcut.save()
+        else:
+            # Remove the shortcut from the Startup folder if it exists and the "Khởi động cùng windows" checkbutton is not checked
+            if os.path.exists(path):
+                os.remove(path)
+        
+        settings_window.destroy()
+    
+    settings_window.protocol("WM_DELETE_WINDOW", on_close)
+
+#--------------------------------------------------------------------
+
+#Tạo systeam Stay icon 
+import tkinter as tk
+from pystray import Icon as icon, Menu as menu, MenuItem as item
+from PIL import Image
+
+def show_window(icon, item):
+    icon.stop()
+    root.update()
+    root.deiconify()
+
+def hide_window():
+    root.withdraw()
+    image = Image.open("C:/KetCauMk-Pr/Ảnh/logo.png")
+    tray = icon("name", image, "title", menu(item('Show Window', show_window)))
+    tray.run()
+
+    
+# Khu Vực Root Cửa Sổ Phần Mềm       
+root = tk.Tk()
+root.title("KetCauMk-Pr")
+logo_path = os.path.join('C:/KetCauMk-Pr/Ảnh', 'logo.png')
+logo = tk.PhotoImage(file=logo_path)
+root.iconphoto(False, logo)
+# Set the default font for all widgets
+root.option_add("*Font", ("Time New Roman", 10))
+toolbar = tk.Frame(root, relief=tk.SUNKEN, borderwidth=2)
+toolbar.pack(side=tk.TOP, fill=tk.X)
+#-----------------------------------------------
+
+
+# Tiếp Nối Hàm tạo nền giao diện
+if os.path.exists('color.txt'):
+    with open('color.txt', 'r') as f:
+        color = f.read()
+        root.configure(background=color)
+        root.wm_attributes("-topmost", True)
+
+#Doan Code
+def openLink(event):
+    webbrowser.open("https://sites.google.com/view/ketcaumk-pr")
+
+def updateTime(label):
+    current_date = datetime.now()
+    label.config(text=f"Current date and time: {current_date.strftime('%Y-%m-%d %H:%M:%S')}")
+    label.after(1000, updateTime, label)
+#Hàm Hiển Thị Thông Tin Phần Mềm 
+def displayInfo():
+    version = '1.0.0.0'
+    info_window = tk.Toplevel(root)
+    info_window.title("Thông Tin")
+    info_window.iconbitmap('C:/KetCauMk-Pr/Ảnh/logo.ico')
+    info_window.configure(bg="white")
+    
+    logo_image = Image.open('C:/KetCauMk-Pr/Ảnh/logo.png')
+    logo_image.thumbnail((64, 64))
+    logo_photo = ImageTk.PhotoImage(logo_image)
+    logo_label = tk.Label(info_window, image=logo_photo, bg="white")
+    logo_label.image = logo_photo
+    logo_label.pack(side=tk.LEFT, padx=10, pady=10)
+    
+    info_frame = tk.Frame(info_window, bg="white")
+    info_frame.pack(side=tk.RIGHT, padx=10, pady=10)
+    
+    info_label = tk.Label(info_frame, text=f"KetCauMk-Pr\nTác Giả: Developer By Minh Khoa\nVersion: {version}", justify=tk.LEFT, font=("TkDefaultFont", 16, "italic"), bg="white")
+    info_label.pack()
+    
+    link_label = tk.Label(info_frame, text="KetCauMk-Pr.com", fg="blue", cursor="hand2", font=("TkDefaultFont", 16, "italic"), bg="white")
+    link_label.pack()
+    
+    time_label = tk.Label(info_window, font=("TkDefaultFont", 12), bg="white")
+    time_label.place(relx=1.0, rely=1.0, x=-5, y=-5, anchor=tk.SE)
+    updateTime(time_label)
+    
+    link_label.bind("<Button-1>", openLink)
+    
+    info_window.update_idletasks()
+    width = max(info_window.winfo_width(), info_window.winfo_height())
+    info_window.geometry(f"{width}x{width}")
+    
+    info_window.configure(borderwidth=5, relief="solid")
+# Kết Thúc Hàm InFo
+
+            
+#Tao Màu Text
+import random
+def create_text_image(text):
+    # Create a canvas
+    canvas = tk.Canvas(root, width=200, height=30)
+    
+    # Generate a random color
+    color = "#{:06x}".format(random.randint(0, 0xFFFFFF))
+    
+    # Create the text
+    canvas.create_text(100, 15, text=text, font=("Helvetica", 12, "bold"), fill=color)
+    
+    # Convert the canvas to a PhotoImage
+    canvas.update()
+    image = tk.PhotoImage(width=200, height=30)
+    image.paste(canvas)
+    
+    return image
+
+#Hinh Anh Menu 1 
+loc_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/loc.png")
+loc_image = loc_image.subsample(10,20)
+
+taigio_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/taitronggio.png")
+taigio_image = taigio_image.subsample(65,60)
+
+thepdam_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/thepdam1.png")
+thepdam_image = thepdam_image.subsample(30,30)
+thepdamdoc_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/thepdamdoc.png")
+thepdamdoc_image = thepdamdoc_image.subsample(50,50)
+
+thepdai_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/XY.png")
+thepdai_image = thepdai_image.subsample(40,30)
+
+thepcot_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/X.png")
+thepcot_image = thepcot_image.subsample(4,4)
+
+donate_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/donatek.png")
+donate_image = donate_image.subsample(7,7)
+
+set_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/donatek.png")
+set_image = set_image.subsample(7,7)
+
+taitrong_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/taitrong.png")
+taitrong_image = taitrong_image.subsample(20,20)
+
+
+
+#Tao Menu 1-----------------------------------------------------------------------#
+def on_label_click(event):
+    menu1.post(event.x_root, event.y_root)
+    
+menu1 = tk.Menu(root, tearoff=0)
+menu1.add_command(label="Lọc Dữ Liệu",image=loc_image, compound=tk.LEFT, command=open_loc)
+menu1.add_separator()
+menu1.add_command(label="Tính Toán Tải Trọng ",image=taitrong_image, compound=tk.LEFT, command=open_Tai_Trong)
+menu1.add_separator()
+menu1.add_command(label="Tải Trọng Gió",image=taigio_image, compound=tk.LEFT, command=open_Tai_Trong_Gio)
+menu1.add_separator()
+menu1.add_command(label="Tính Thép Dầm" ,image=thepdam_image,compound=tk.LEFT, command=open_stell_beam)
+menu1.add_separator()
+menu1.add_command(label="Excel Thép Dọc Dầm",image=thepdamdoc_image,compound=tk.LEFT, command=open_thep_doc_dam)
+menu1.add_separator()
+menu1.add_command(label="Excel Thép Đai",image=thepdai_image,compound=tk.LEFT, command=open_thep_dai_dam)
+menu1.add_separator()
+menu1.add_command(label="Excel Tính Cột",image=thepcot_image,compound=tk.LEFT, command=display_excel_files)
+
+label1 = tk.Label(toolbar, text="Phần Mềm")
+label1.pack(side=tk.LEFT,padx=10)
+label1.bind("<Button-1>", on_label_click)
+ 
+        
+# Hình ảnh dành cho menu  2 -------------------------------------------------------------#
+set_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/caidat11.png")
+set_image = set_image.subsample(17,17)
+
+sc_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/shc.png")
+sc_image = sc_image.subsample(13,13)
+
+dd_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/duongdan.png")
+dd_image = dd_image.subsample(10,10)
+
+autocad_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/autocad.png")
+autocad_image = autocad_image.subsample(10,10)
+
+update_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/update.png")
+update_image = update_image.subsample(10,10)
+
+exit_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/thoat1.png")
+exit_image = exit_image.subsample(10,10)
+
+thongtin1_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/thongtin1.png")
+thongtin1_image = thongtin1_image.subsample(5,5)
+
+color_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/color.png")
+color_image = color_image.subsample(50,50)
+
+reset_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/reset.png")
+reset_image = reset_image.subsample(50,50)
+
+Kui_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/KMKUI.png")
+Kui_image = Kui_image.subsample(15,15)
+
+infordisk_image = tk.PhotoImage(file="C:/KetCauMk-Pr/Ảnh/infodisk.png")
+infordisk_image = infordisk_image.subsample(15,15)
+
+#Menu 2 -------------------------------------------------------------------------#
+
+def on_label_click(event):
+    menu2.post(event.x_root, event.y_root)
+
+menu2 = tk.Menu(root, tearoff=0)
+menu2.add_command(label="Tải Autocad",image=autocad_image, compound=tk.LEFT, command=open_TaiAutocad)
+menu2.add_separator()
+menu2.add_command(label="Quản Lý Đường Dẫn",image=dd_image, compound=tk.LEFT, command=change_directory)
+menu2.add_separator()
+menu2.add_command(label="Tạo Shortcut",image=sc_image, compound=tk.LEFT, command=create_shortcut)
+menu2.add_separator()
+menu2.add_command(label="Cài Đặt",image=set_image, compound=tk.LEFT, command=open_settings)
+menu2.add_separator()
+menu2.add_command(label="Donate",image=donate_image, compound=tk.LEFT, command=open_Do_Na_Te)
+menu2.add_separator()
+
+submenu=tk.Menu(menu2, tearoff=0)
+submenu.add_command(label="Thông Tin Phần Mềm ",image=thongtin1_image, compound=tk.LEFT, command=displayInfo)
+submenu.add_command(label="Thông Tin Dung Lượng",image=infordisk_image, compound=tk.LEFT, command=open_Infor_Disk)
+menu2.add_cascade(label="Thông Tin",image=thongtin1_image, compound=tk.LEFT, menu=submenu)
+
+menu2.add_separator()
+menu2.add_command(label="Thoát",image=exit_image, compound=tk.LEFT, command=root.quit)
+
+separator2 = ttk.Separator(toolbar, orient=tk.VERTICAL)
+separator2.pack(side=tk.LEFT, fill=tk.Y, padx=10)
+label2 = tk.Label(toolbar, text="Công Cụ")
+label2.pack(side=tk.LEFT,padx=10)
+label2.bind("<Button-1>", on_label_click)
+separator3 = ttk.Separator(toolbar, orient=tk.VERTICAL)
+separator3.pack(side=tk.LEFT, fill=tk.Y, padx=10)
+
+
+# Define the local paths for the images and links file
+image1_path = "c:/KetCauMk-Pr/Contac/facebook.png"
+image2_path = "c:/KetCauMk-Pr/Contac/zalo.png"
+image3_path = "c:/KetCauMk-Pr/Contac/youtobe.png"
+links_path = "c:/KetCauMk-Pr/Contac/links.txt"
+
+# Load the images
+if os.path.exists(image1_path):
+    image1 = tk.PhotoImage(file=image1_path)
+else:
+    image1 = None
+
+if os.path.exists(image2_path):
+    image2 = tk.PhotoImage(file=image2_path)
+else:
+    image2 = None
+
+if os.path.exists(image3_path):
+    image3 = tk.PhotoImage(file=image3_path)
+else:
+    image3 = None
+
+# Resize the images
+if image1 is not None:
+    image1 = image1.subsample(image1.width()//30, image1.height()//30)
+
+if image2 is not None:
+    image2 = image2.subsample(image2.width()//30, image2.height()//30)
+
+if image3 is not None:
+    image3 = image3.subsample(image3.width()//30, image3.height()//30)
+
+# Create labels with the images
+label1 = tk.Label(toolbar, image=image1)
+label2 = tk.Label(toolbar, image=image2)
+label3 = tk.Label(toolbar, image=image3)
+
+# Pack the labels
+label1.pack(side=tk.LEFT, padx=1)
+label2.pack(side=tk.LEFT, padx=1)
+label3.pack(side=tk.LEFT, padx=1)
+
+# Load the links from the local file or from the network
+links = {}
+if os.path.exists(links_path):
+    with open(links_path, "r") as f:
+        data = f.read()
+else:
+    url = "https://raw.githubusercontent.com/Minhkhoa2206/FINTER/main/contac"
+    with urllib.request.urlopen(url) as response:
+        data = response.read().decode("utf-8")
+        with open(links_path, "w") as f:
+            f.write(data)
+
+# Extract the links from the data
+lines = data.split("\n")
+for line in lines:
+    if line.startswith("Link"):
+        parts = line.split("(")
+        key = parts[0].strip()
+        value = parts[1].split(")")[0].strip()
+        links[key] = value
+
+# Bind the label click events to handler functions
+def on_label1_click(event):
+    webbrowser.open(links["Link Facebook"])
+
+def on_label2_click(event):
+    webbrowser.open(links["Link Zalo"])
+
+def on_label3_click(event):
+    webbrowser.open(links["Link Youtobe"])
+
+label1.bind("<Button-1>", on_label1_click)
+label2.bind("<Button-1>", on_label2_click)
+label3.bind("<Button-1>", on_label3_click)
+#Hàm Tạo ToolBar---------------------------------------------------#
+
+toolbar.pack(side=tk.TOP, fill=tk.X)
+
+button_frame = tk.Frame(root)
+button_frame.pack()
+
+#Kết Thúc Đoạn Mã Menu
+#---------------------------------------------------------------------#
+#By Developer By Minh Khoa
+#---------------------------------------------------------------------#
+
+#Đoạn Code Chức Năng
+def on_enter(event, button, img):
+    resized_img = img.resize((50,50))
+    photo_img = ImageTk.PhotoImage(resized_img)
+    button.config(image=photo_img)
+    button.image = photo_img
+    button.config(highlightbackground="blue", highlightthickness=2)
+
+def on_leave(event, button, img):
+    resized_img = img.resize((40,40))
+    photo_img = ImageTk.PhotoImage(resized_img)
+    button.config(image=photo_img)
+    button.image = photo_img
+    button.config(highlightthickness=0)
+
+
+
+# Khai báo khung hiển thị Tính Năng
+# Khai báo khung hiển thị Tính Năng
+feature_frame = tk.LabelFrame(root, text="Tính Năng")
+feature_frame.pack()
+
+
+
+#Chức Năng Đơn Giản Của Phần Mềm 
+
+# Create a frame for each button and label pair
+button_frame1 = tk.Frame(feature_frame)
+button_frame1.pack(side=tk.LEFT)
+
+loc_path = os.path.join('C:/KetCauMk-Pr/Ảnh', 'Loc.png')
+img1 = Image.open(loc_path)
+resized_img1 = img1.resize((40,40))
+photo_img1 = ImageTk.PhotoImage(resized_img1)
+button1 = tk.Button(button_frame1, image=photo_img1, command=lambda: os.startfile(os.path.join(cwd,"loc.exe")))
+button1.pack(side=tk.TOP,pady=10)
+label1 = tk.Label(button_frame1,text=" Filter Data ")
+label1.pack(side=tk.TOP)
+button_frame2 = tk.Frame(feature_frame)
+button_frame2.pack(side=tk.LEFT)
+
+st1_path = os.path.join('C:/KetCauMk-Pr/Ảnh', 'St1.png')
+img2 = Image.open(st1_path)
+resized_img2 = img2.resize((40,40))
+photo_img2 = ImageTk.PhotoImage(resized_img2)
+button2 = tk.Button(button_frame2,image=photo_img2, command=lambda: os.startfile(os.path.join(cwd,"St1.exe")))
+button2.pack(side=tk.TOP,pady=10)
+label2 = tk.Label(button_frame2,text=" Stee Beam ")
+label2.pack(side=tk.TOP)
+
+button_frame3 = tk.Frame(feature_frame)
+button_frame3.pack(side=tk.LEFT)
+
+thepdamdoc_path = os.path.join('C:/KetCauMk-Pr/Ảnh', 'thepdam1.png')
+img3 = Image.open(thepdamdoc_path)
+resized_img3 = img3.resize((40,40))
+photo_img3 = ImageTk.PhotoImage(resized_img3)
+button3 = tk.Button(button_frame3,image=photo_img3, command=lambda: os.startfile(os.path.join(cwd,"thepdodam.xlsx")))
+button3.pack(side=tk.TOP, pady=10)
+label3 = tk.Label(button_frame3,text=" Excel Thép Dầm   ")
+label3.pack(side=tk.TOP)
+
+button_frame4 = tk.Frame(feature_frame)
+button_frame4.pack(side=tk.LEFT)
+
+xy_path = os.path.join('C:/KetCauMk-Pr/Ảnh', 'XY.png')
+img4 = Image.open(xy_path)
+resized_img4 = img4.resize((40,40))
+photo_img4 = ImageTk.PhotoImage(resized_img4)
+button4 = tk.Button(button_frame4,image=photo_img4, command=lambda: os.startfile(os.path.join(cwd,"thepdaidam.xlsx")))
+button4.pack(side=tk.TOP,pady=10)
+label4 = tk.Label(button_frame4,text=" Excel Thép Đai  ")
+label4.pack(side=tk.TOP)
+
+button_frame5 = tk.Frame(feature_frame)
+button_frame5.pack(side=tk.LEFT)
+
+ltx_path = os.path.join('C:/KetCauMk-Pr/Ảnh', 'cot.jpg')
+img_ltx = Image.open(ltx_path)
+resized_img_ltx = img_ltx.resize((40,40))
+photo_img_ltx = ImageTk.PhotoImage(resized_img_ltx)
+button5 = tk.Button(button_frame5,image=photo_img_ltx, command=lambda: os.startfile(os.path.join(cwd,'Ltx')))
+button5.pack(side=tk.TOP,pady=10)
+label5 = tk.Label(button_frame5,text=" Excel Cột LTX ")
+label5.pack(side=tk.TOP)
+
+
+
+
+#Đoạn Mã Hiển Thị Thông Tin
+
+#--------------------------------------------------------------------
+import os
+import requests
+import tkinter as tk
+from tkinter import font
+from PIL import Image, ImageTk
+import webbrowser
+
+def update_label():
+    try:
+        response = requests.get(url)
+        data = response.text
+        with open('data.txt', 'w', encoding='utf-8') as f:
+            f.write(data)
+    except:
+        with open('data.txt', 'r', encoding='utf-8') as f:
+            data = f.read()
+    for widget in info_frame.winfo_children():
+        widget.destroy()
+    lines = data.split('\n')
+    for line in lines:
+        if '(' in line and ')' in line:
+            parts = line.split('(')
+            text = parts[0].strip()
+            link = parts[1].strip().rstrip(')')
+            label = tk.Label(info_frame, text=text, fg="blue")
+            label.pack()
+            label.bind("<Button-1>", lambda e, link=link: webbrowser.open(link))
+        else:
+            label = tk.Label(info_frame, text=line)
+            label.pack()
+    root.after(300000, update_label)
+
+def update_notification():
+    try:
+        response = requests.get(notification_url)
+        data = response.text
+        with open('notification.txt', 'w', encoding='utf-8') as f:
+            f.write(data)
+    except:
+        with open('notification.txt', 'r', encoding='utf-8') as f:
+            data = f.read()
+    for widget in notification_frame.winfo_children():
+        widget.destroy()
+        lines = data.split('\n')
+    for line in lines:
+        if '(' in line and ')' in line:
+            parts = line.split('(')
+            text = parts[0].strip()
+            link = parts[1].strip().rstrip(')')
+            label = tk.Label(notification_frame, text=text, fg="blue")
+            label.pack()
+            label.bind("<Button-1>", lambda e, link=link: webbrowser.open(link))
+        else:
+            label = tk.Label(notification_frame, text=line)
+            label.pack()
+    root.after(300000, update_notification)
+
+
+
+url = 'https://raw.githubusercontent.com/Minhkhoa2206/FINTER/main/capnhat.txt'
+notification_url = 'https://raw.githubusercontent.com/Minhkhoa2206/FINTER/main/thongbao.txt'
+
+# Create a new frame to hold the "Thông Tin Phần Mềm" and "Thông Báo" labels
+frame = tk.Frame(root)
+frame.pack(fill="both", expand=True)
+
+# Create a new frame to hold the "Thông Tin Phần Mềm" label
+info_frame = tk.LabelFrame(frame, text="Thông Tin Cập Nhật ")
+info_frame.pack(side="left", fill="both", expand=True)
+
+# Create a new frame to hold the "Thông Báo" label
+notification_frame = tk.LabelFrame(frame, text="Thông Báo")
+notification_frame.pack(side="right", fill="both", expand=True)
+
+
+
+root.after(1000, update_label)
+root.after(1000, update_notification)
+
+
+# Create a label and add it to the info_frame
+info_label = tk.Label(info_frame, text="VUI LÒNG ĐỢI ",fg="Blue")
+info_label.pack()
+
+# Create a label and add it to the info_frame
+info_label = tk.Label(notification_frame, text="VUI LÒNG ĐỢI ",fg="Blue")
+info_label.pack()
+
+# Change the font of the label to make it underlined
+font = font.Font(info_label, info_label.cget("font"))
+font.configure(underline=True)
+info_label.configure(font=font)
+
+# Change the font of the label to make it underlined
+
+#--------------------------------------------------------------------
+
+
+
+#Chạy Chương Trình  
+root.mainloop()
+
+                                                  
